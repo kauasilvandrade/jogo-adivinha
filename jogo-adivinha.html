@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Jogo</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 96vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .conteudo {
+            border: 3px solid black;
+            border-radius: 5px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0px 0px 14px #0000004d;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+
+        .inputBox {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        label {}
+
+        input {
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 0.5rem;
+            width: 100%;
+        }
+
+        .botoes {
+            display: flex;
+        }
+
+        button {
+            padding: 0.5rem;
+            width: 7rem;
+            border: 2px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: auto;
+            transition: .5s;
+        }
+
+        button:hover {
+            background-color: #00000047;
+        }
+
+        p {}
+
+    </style>
+
+</head>
+<body>
+    <main class="conteudo">
+
+        <h1>Jogo de Adivinhação</h1>
+
+        <div class="inputBox">
+
+            <label for="respNum">Tente adivinhar o número entre 1 e 10:</label>
+            <input type="number" name="respNum" id="respNum">
+
+            <div class="botoes">
+                <button type="submit" onclick="iniciarJogo()" id="btnIniciar">Verificar</button>
+            </div>
+
+            <p></p>
+
+        </div>
+        
+        
+    </main>
+    
+    <script>
+        let respostaUser = document.getElementById('respNum');
+        let mostrarResp = document.querySelector('p')
+        let tentativas = 3
+
+        // NÚMERO ALEATÓRIO
+        let numeroAleatorio = Math.floor(Math.random() * 10) + 1;
+
+        function iniciarJogo() {
+
+            if (respostaUser.value.trim() == "") {
+                alert('Por favor, insira um número entre 1 e 10.')
+            } else {
+
+                if (respostaUser.value == numeroAleatorio) {
+
+                    mostrarResp.innerText = 'Parabéns! Você acertou!'
+                    mostrarResp.style.color = 'green'
+
+                } else {
+                    tentativas -= 1
+
+                    if (respostaUser.value > numeroAleatorio) {
+                        mostrarResp.innerText = `Errado! Tente um número menor. Tentativas restantes: ${tentativas}`
+                        mostrarResp.style.color = 'red'
+                    } else {
+                        mostrarResp.innerText = `Errado! Tente um número maior. Tentativas restantes: ${tentativas}`
+                        mostrarResp.style.color = 'red'
+                    }
+
+                    if (tentativas == 0) {
+                        mostrarResp.innerText = `Game Over! O número era ${numeroAleatorio}.`
+                        mostrarResp.style.color = 'red'
+                        document.getElementById('btnIniciar').disabled = true;
+                    }
+            
+                }
+
+            }    
+
+        }
+
+    </script>
+</body>
+</html>
